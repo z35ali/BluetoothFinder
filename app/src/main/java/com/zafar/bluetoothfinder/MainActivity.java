@@ -53,12 +53,19 @@ public class MainActivity extends AppCompatActivity {
                 //Signal Strength
                 String rssi = Integer.toString(intent.getShortExtra(BluetoothDevice.EXTRA_RSSI, Short.MIN_VALUE));
                 //Log.i("Device Found", "Name: " + name + " Address: " + address + " RSSI: " + rssi);
+                String deviceString = "";
                 if(name == null || name.equals("")){
-                    bluetoothDevices.add(address + " - RSSI " + rssi + "dBm");
+
+                    deviceString = address + " - RSSI " + rssi + "dBm";
 
                 }else{
-                    bluetoothDevices.add(name + " - RSSI " + rssi + "dBm");
+                    deviceString = name + " - RSSI " + rssi + "dBm";
 
+                }
+
+                //No Duplicates!
+                if (!bluetoothDevices.contains(deviceString)){
+                    bluetoothDevices.add(deviceString);
                 }
                 arrayAdapter.notifyDataSetChanged();
             }
@@ -72,6 +79,9 @@ public class MainActivity extends AppCompatActivity {
         ActivityCompat.requestPermissions(this,
                 new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
                 MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION);
+
+        //Clear ListView For a New Search
+        bluetoothDevices.clear();
         bluetoothAdapter.startDiscovery();
 
 
