@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
     };
 
     public void searchClicked(View view){
-        statusTextView.setText("Searching...");
+        statusTextView.setText("Searching For Avaiable Devices...");
         searchButton.setEnabled(false);
         int MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION = 1;
         ActivityCompat.requestPermissions(this,
