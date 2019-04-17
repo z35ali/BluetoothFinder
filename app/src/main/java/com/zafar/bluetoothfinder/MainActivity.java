@@ -12,15 +12,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     ListView listView;
     TextView statusTextView;
     Button searchButton;
+    ArrayList<String> bluetoothDevices = new ArrayList<>();
+    ArrayAdapter arrayAdapter;
 
     BluetoothAdapter bluetoothAdapter;
 
@@ -44,10 +49,18 @@ public class MainActivity extends AppCompatActivity {
                 //Device Address
                 String address = device.getAddress();
 
+
                 //Signal Strength
                 String rssi = Integer.toString(intent.getShortExtra(BluetoothDevice.EXTRA_RSSI, Short.MIN_VALUE));
-                Log.i("Device Found", "Name: " + name + " Address: " + address + " RSSI: " + rssi);
+                //Log.i("Device Found", "Name: " + name + " Address: " + address + " RSSI: " + rssi);
+                if(name == null || name.equals("")){
+                    bluetoothDevices.add(address + " - RSSI " + rssi + "dBm");
 
+                }else{
+                    bluetoothDevices.add(name + " - RSSI " + rssi + "dBm");
+
+                }
+                arrayAdapter.notifyDataSetChanged();
             }
         }
     };
@@ -72,6 +85,10 @@ public class MainActivity extends AppCompatActivity {
         listView = findViewById(R.id.listView);
         statusTextView = findViewById(R.id.statusTextView);
         searchButton = findViewById(R.id.searchButton);
+
+        arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, bluetoothDevices);
+        listView.setAdapter(arrayAdapter);
+
 
         statusTextView.setText("Make Sure Bluetooth Is On");
 
