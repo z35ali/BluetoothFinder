@@ -44,8 +44,8 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="backgroundImage" value="C:\Users\Zafar\Desktop\white.jpg" />
-                                      <entry key="foregroundImage" value="C:\Users\Zafar\Desktop\bluetooth.png" />
+                                      <entry key="backgroundImage" value="C:\Users\Zafar\Desktop\white.png" />
+                                      <entry key="foregroundImage" value="C:\Users\Zafar\Desktop\bluetooth-square.png" />
                                     </map>
                                   </option>
                                 </PersistentState>
