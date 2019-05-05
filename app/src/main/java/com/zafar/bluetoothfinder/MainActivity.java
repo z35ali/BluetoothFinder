@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
                 statusTextView.setText("Finished");
                 searchButton.setEnabled(true);
             }else if (BluetoothDevice.ACTION_FOUND.equals(action)){
-
+                Toast.makeText(context, "Found", Toast.LENGTH_SHORT).show();
                 //Get Device
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
 
@@ -112,7 +113,20 @@ public class MainActivity extends AppCompatActivity {
 
         registerReceiver(broadcastReceiver, intentFilter);
 
+        if(savedInstanceState != null){
+            bluetoothDevices = savedInstanceState.getStringArrayList("bluetoothDevices");
+            arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, bluetoothDevices);
+            listView.setAdapter(arrayAdapter);
+        }
 
 
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putStringArrayList("bluetoothDevices", bluetoothDevices);
+    }
+
+
 }
